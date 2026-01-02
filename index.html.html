@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tools for image compression, file conversion, PDF tools, word counter, password generator, and age calculator. All tools work in your browser with complete privacy.">
+    <meta name="keywords" content="online tools, image compressor, PDF converter, word counter, password generator, age calculator, free tools">
+    <meta name="author" content="ToolsHub">
+    <title>ToolsHub - Free Online Tools for Everyone</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #3b82f6;
+            --accent-color: #60a5fa;
+            --bg-color: #ffffff;
+            --surface-color: #f8fafc;
+            --card-color: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+        }
+
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --card-color: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #334155;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            background-color: var(--card-color);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .dark-mode-toggle {
+            background: var(--surface-color);
+            border: 2px solid var(--border-color);
+            border-radius: 24px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .dark-mode-toggle:hover {
+            border-color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        section {
+            display: none;
+            min-height: calc(100vh - 200px);
+            padding: 64px 0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .tool-card {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tool-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .tool-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .tool-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .tool-interface {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tool-interface h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .tool-interface .description {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 48px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: var(--surface-color);
+        }
+
+        .upload-area:hover,
+        .upload-area.drag-over {
+            border-color: var(--primary-color);
+            background: var(--card-color);
+        }
+
+        .upload-area input[type="file"] {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        input[type="range"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+            background: var(--surface-color);
+            color: var(--text-primary);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .button-secondary {
+            background: var(--surface-color);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .result-area {
+            margin-top: 32px;
+            padding: 24px;
+            background: var(--surface-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-area h3 {
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .stat-item {
+            background: var(--card-color);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+
+        body.dark-mode .alert-success {
+            background: #064e3b;
+            color: #d1fae5;
+        }
+
+        body.dark-mode .alert-error {
+            background: #7f1d1d;
+            color: #fee2e2;
+        }
+
+        body.dark-mode .alert-info {
+            background: #1e3a8a;
+            color: #dbeafe;
+        }
+
+        .preview-container {
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 8px;
+            margin: 16px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+        }
+
+        .slider-value {
+            min-width: 60px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .generated-password {
+            background: var(--surface-color);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: 600;
+            word-break: break-all;
+            margin: 16px 0;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        footer {
+            background: var(--card-color);
+            padding: 48px 0 24px;
+            margin-top: 80px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .content-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-section h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .content-section h3 {
+            font-size: 24px;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+
+        .content-section p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .content-section ul {
+            margin: 16px 0;
+            padding-left: 24px;
+            color: var(--text-secondary);
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .back-button {
+            margin-bottom: 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: gap 0.3s ease;
+        }
+
+        .back-button:hover {
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 72px;
+                left: -100%;
+                width: 100%;
+                background: var(--card-color);
+                flex-direction: column;
+                padding: 24px;
+                box-shadow: var(--shadow-lg);
+                transition: left 0.3s ease;
+                gap: 16px;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .hero {
+                padding: 40px 0;
+            }
+
+            section {
+                padding: 32px 0;
+            }
+
+            .tool-interface {
+                padding: 24px;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .button-group .button {
+                width: 100%;
+            }
+        }
+
+        .loader {
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+
+        .loader.show {
+            display: block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo" onclick="showSection('home')">
+                <div class="logo-icon">T</div>
+                <span>ToolsHub</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a onclick="showSection('home')" class="active">Home</a></li>
+                <li><a onclick="showSection('tools')">Tools</a></li>
+                <li><a onclick="showSection('about')">About</a></li>
+                <li><a onclick="showSection('contact')">Contact</a></li>
+                <li>
+                    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+                        <span id="darkModeIcon">🌙</span>
+                        <span id="darkModeText">Dark</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="active">
+            <div class="container">
+                <div class="hero">
+                    <h1>Free Online Tools</h1>
+                    <p class="subtitle">Professional tools for image compression, file conversion, and more. All processing happens in your browser for complete privacy.</p>
+                    <button class="cta-button" onclick="showSection('tools')">Explore Tools</button>
+                </div>
+
+                <div class="tools-grid">
+                    <div class="tool-card" onclick="showTool('image-compressor')">
+                        <div class="tool-icon">🖼️</div>
+                        <h3>Image Compressor</h3>
+                        <p>Reduce image file size while maintaining quality. Supports JPG, PNG, and WebP formats.</p>
+                    </div>
+                    <div class="tool-card" onclick="showTool('image-converter')">
+                        <div class="tool-icon">🔄</div>
+                        <h3>Image Converter</h3>
+                        <p>Convert images between JPG and PNG formats instantly in your browser.</p>
+                    </div>
+                    <div class="tool-card" onclick="showTool('pdf-converter')">
+                        <div class="tool-icon">📄</div>
+                        <h3>PDF Tools</h3>
+                        <p>Convert PDF to JPG or extract text from PDF documents easily.</p>
+                    </div>
+                    <div class="tool-card" onclick="showTool('word-counter')">
+                        <div class="tool-icon">📝</div>
+                        <h3>Word Counter</h3>
+                        <p>Count words, characters, and paragraphs in real-time as you type.</p>
+                    </div>
+                    <div class="tool-card" onclick="showTool('password-generator')">
+                        <div class="tool-icon">🔐</div>
+                        <h3>Password Generator</h3>
+                        <p>Generate secure, random passwords with customizable length and complexity.</p>
+                    </div>
+                    <div class="tool-card" onclick="showTool('age-calculator')">
+                        <div class="tool-icon">🎂</div>
+                        <h3>Age Calculator</h3>
+                        <p>Calculate your exact age in years, months, and days from your date of birth.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 48px; font-size: 36px;">All Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card" onclick="showTool('image-compressor')">
+                        <div class="tool-icon">🖼️</div>
+                        <h3>Image Compressor</h3>
+                        <p>Reduce image file size while maintaining quality. Supports JPG, PNG, and WebP formats.</p>
+                    </div>
+                    <div class="tool-card" onclick="showTool('image-converter')">
+                        <div class="tool-icon">🔄</div>
+                        <h3>Image Converter</h3>
+                        <p>Convert images between JPG and PNG formats instantly in your browser.</p>
+                    </div>
+                    <div class="tool-card" onclick="showTool('pdf-converter')">
+                        <div class="tool-icon">📄</div>
+                        <h3>PDF Tools</h3>
+                        <p>Convert PDF to JPG or extract text from PDF documents easily.</p>
+                    </div>
+                    <div class="tool-card" onclick="showTool('word-counter')">
+                        <div class="tool-icon">📝</div>
+                        <h3>Word Counter</h3>
+                        <p>Count words, characters, and paragraphs in real-time as you type.</p>
+                    </div>
+                    <div class="tool-card" onclick="showTool('password-generator')">
+                        <div class="tool-icon">🔐</div>
+                        <h3>Password Generator</h3>
+                        <p>Generate secure, random passwords with customizable length and complexity.</p>
+                    </div>
+                    <div class="tool-card" onclick="showTool('age-calculator')">
+                        <div class="tool-icon">🎂</div>
+                        <h3>Age Calculator</h3>
+                        <p>Calculate your exact age in years, months, and days from your date of birth.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="image-compressor">
+            <div class="container">
+                <div class="tool-interface">
+                    <a class="back-button" onclick="showSection('tools')">← Back to Tools</a>
+                    <h2>Image Compressor</h2>
+                    <p class="description">Reduce your image file size while maintaining quality. All processing happens in your browser.</p>
+
+                    <div id="compressorAlert" class="alert"></div>
+
+                    <div class="upload-area" id="compressorUpload" onclick="document.getElementById('compressorInput').click()">
+                        <div class="upload-icon">📤</div>
+                        <p><strong>Click to upload</strong> or drag and drop</p>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">Supports: JPG, PNG, WebP</p>
+                        <input type="file" id="compressorInput" accept="image/*">
+                    </div>
+
+                    <div id="compressorControls" class="hidden" style="margin-top: 24px;">
+                        <div class="form-group">
+                            <label>Compression Quality: <span id="qualityValue">80</span>%</label>
+                            <div class="slider-container">
+                                <input type="range" id="qualitySlider" min="10" max="100" value="80">
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="button" onclick="compressImage()">Compress Image</button>
+                            <button class="button button-secondary" onclick="resetCompressor()">Reset</button>
+                        </div>
+                    </div>
+
+                    <div id="compressorResult" class="result-area hidden">
+                        <h3>Results</h3>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Original Size</div>
+                                <div class="stat-value" id="originalSize">0 KB</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Compressed Size</div>
+                                <div class="stat-value" id="compressedSize">0 KB</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Size Reduction</div>
+                                <div class="stat-value" id="sizeReduction">0%</div>
+                            </div>
+                        </div>
+                        <div class="preview-container">
+                            <img id="compressedPreview" class="preview-image" alt="Compressed preview">
+                            <br>
+                            <button class="button" onclick="downloadCompressed()">Download Compressed Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="image-converter">
+            <div class="container">
+                <div class="tool-interface">
+                    <a class="back-button" onclick="showSection('tools')">← Back to Tools</a>
+                    <h2>Image Converter</h2>
+                    <p class="description">Convert images between JPG and PNG formats quickly and easily.</p>
+
+                    <div id="converterAlert" class="alert"></div>
+
+                    <div class="upload-area" onclick="document.getElementById('converterInput').click()">
+                        <div class="upload-icon">📤</div>
+                        <p><strong>Click to upload</strong> or drag and drop</p>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">Supports: JPG, PNG, WebP, GIF</p>
+                        <input type="file" id="converterInput" accept="image/*">
+                    </div>
+
+                    <div id="converterControls" class="hidden" style="margin-top: 24px;">
+                        <div class="form-group">
+                            <label>Convert to:</label>
+                            <select id="convertFormat">
+                                <option value="image/jpeg">JPG</option>
+                                <option value="image/png">PNG</option>
+                            </select>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="button" onclick="convertImage()">Convert Image</button>
+                            <button class="button button-secondary" onclick="resetConverter()">Reset</button>
+                        </div>
+                    </div>
+
+                    <div id="converterResult" class="result-area hidden">
+                        <h3>Converted Image</h3>
+                        <div class="preview-container">
+                            <img id="convertedPreview" class="preview-image" alt="Converted preview">
+                            <br>
+                            <button class="button" onclick="downloadConverted()">Download Converted Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pdf-converter">
+            <div class="container">
+                <div class="tool-interface">
+                    <a class="back-button" onclick="showSection('tools')">← Back to Tools</a>
+                    <h2>PDF Tools</h2>
+                    <p class="description">Convert PDF to JPG or extract text from PDF documents.</p>
+
+                    <div id="pdfAlert" class="alert"></div>
+
+                    <div class="upload-area" onclick="document.getElementById('pdfInput').click()">
+                        <div class="upload-icon">📤</div>
+                        <p><strong>Click to upload PDF</strong></p>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">Supports: PDF files only</p>
+                        <input type="file" id="pdfInput" accept=".pdf,application/pdf">
+                    </div>
+
+                    <div id="pdfControls" class="hidden" style="margin-top: 24px;">
+                        <div class="form-group">
+                            <label>Choose conversion type:</label>
+                            <select id="pdfConvertType">
+                                <option value="jpg">PDF to JPG (First Page)</option>
+                                <option value="text">Extract Text</option>
+                            </select>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="button" onclick="convertPDF()">Convert PDF</button>
+                            <button class="button button-secondary" onclick="resetPDF()">Reset</button>
+                        </div>
+                    </div>
+
+                    <div class="loader" id="pdfLoader"></div>
+
+                    <div id="pdfResult" class="result-area hidden">
+                        <h3>Result</h3>
+                        <div id="pdfResultContent"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="word-counter">
+            <div class="container">
+                <div class="tool-interface">
+                    <a class="back-button" onclick="showSection('tools')">← Back to Tools</a>
+                    <h2>Word Counter</h2>
+                    <p class="description">Count words, characters, and paragraphs in real-time.</p>
+
+                    <div class="form-group">
+                        <label>Enter or paste your text:</label>
+                        <textarea id="wordCounterText" placeholder="Start typing or paste your text here..." oninput="updateWordCount()"></textarea>
+                    </div>
+
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Words</div>
+                            <div class="stat-value" id="wordCount">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Characters</div>
+                            <div class="stat-value" id="charCount">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Characters (no spaces)</div>
+                            <div class="stat-value" id="charCountNoSpace">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Paragraphs</div>
+                            <div class="stat-value" id="paragraphCount">0</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 24px;">
+                        <button class="button button-secondary" onclick="clearWordCounter()">Clear Text</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="password-generator">
+            <div class="container">
+                <div class="tool-interface">
+                    <a class="back-button" onclick="showSection('tools')">← Back to Tools</a>
+                    <h2>Password Generator</h2>
+                    <p class="description">Generate secure, random passwords with customizable options.</p>
+
+                    <div class="form-group">
+                        <label>Password Length: <span id="lengthValue">16</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="passwordLength" min="4" max="64" value="16" oninput="updateLengthValue()">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Include:</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="includeUppercase" checked>
+                                <label for="includeUppercase" style="margin: 0;">Uppercase Letters (A-Z)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="includeLowercase" checked>
+                                <label for="includeLowercase" style="margin: 0;">Lowercase Letters (a-z)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="includeNumbers" checked>
+                                <label for="includeNumbers" style="margin: 0;">Numbers (0-9)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="includeSymbols" checked>
+                                <label for="includeSymbols" style="margin: 0;">Symbols (!@#$%^&*)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="button" onclick="generatePassword()">Generate Password</button>
+
+                    <div id="passwordResult" class="result-area hidden">
+                        <h3>Generated Password</h3>
+                        <div class="generated-password" id="generatedPassword"></div>
+                        <button class="button" onclick="copyPassword()">Copy to Clipboard</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="age-calculator">
+            <div class="container">
+                <div class="tool-interface">
+                    <a class="back-button" onclick="showSection('tools')">← Back to Tools</a>
+                    <h2>Age Calculator</h2>
+                    <p class="description">Calculate your exact age from your date of birth.</p>
+
+                    <div id="ageAlert" class="alert"></div>
+
+                    <div class="form-group">
+                        <label>Date of Birth:</label>
+                        <input type="date" id="birthDate" max="">
+                    </div>
+
+                    <button class="button" onclick="calculateAge()">Calculate Age</button>
+
+                    <div id="ageResult" class="result-area hidden">
+                        <h3>Your Age</h3>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Years</div>
+                                <div class="stat-value" id="ageYears">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Months</div>
+                                <div class="stat-value" id="ageMonths">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Days</div>
+                                <div class="stat-value" id="ageDays">0</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 24px; text-align: center;">
+                            <p id="ageSummary" style="font-size: 18px; color: var(--text-primary);"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <div class="content-section">
+                    <h2>About ToolsHub</h2>
+                    <p>Welcome to ToolsHub, your trusted destination for free, professional-grade online tools. We believe that everyone should have access to powerful, easy-to-use tools without compromising their privacy or paying expensive subscription fees.</p>
+
+                    <h3>Our Mission</h3>
+                    <p>Our mission is to provide high-quality, free online tools that make your daily tasks easier and more efficient. Whether you need to compress an image, convert a file, or generate a secure password, we've got you covered.</p>
+
+                    <h3>Privacy First</h3>
+                    <p>Your privacy is our top priority. All our tools process your data directly in your browser using client-side JavaScript. This means:</p>
+                    <ul>
+                        <li>Your files never leave your device</li>
+                        <li>No data is stored on our servers</li>
+                        <li>No tracking or monitoring of your activity</li>
+                        <li>Complete privacy and security for your sensitive information</li>
+                    </ul>
+
+                    <h3>Our Tools</h3>
+                    <p>We offer a growing collection of tools designed to handle common tasks:</p>
+                    <ul>
+                        <li><strong>Image Compressor:</strong> Reduce image file sizes without visible quality loss</li>
+                        <li><strong>Image Converter:</strong> Convert between popular image formats</li>
+                        <li><strong>PDF Tools:</strong> Convert and extract data from PDF files</li>
+                        <li><strong>Word Counter:</strong> Analyze text with detailed statistics</li>
+                        <li><strong>Password Generator:</strong> Create strong, secure passwords</li>
+                        <li><strong>Age Calculator:</strong> Calculate exact age from date of birth</li>
+                    </ul>
+
+                    <h3>Always Free</h3>
+                    <p>All our tools are completely free to use with no hidden charges, subscriptions, or premium features. We believe in making powerful tools accessible to everyone.</p>
+
+                    <h3>Contact Us</h3>
+                    <p>Have questions or suggestions? We'd love to hear from you. Visit our <a onclick="showSection('contact')" style="color: var(--primary-color); cursor: pointer;">Contact page</a> to get in touch.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <div class="content-section">
+                    <div class="tool-interface" style="max-width: 600px;">
+                        <h2>Contact Us</h2>
+                        <p class="description">Have a question or suggestion? We'd love to hear from you.</p>
+
+                        <div id="contactAlert" class="alert"></div>
+
+                        <form id="contactForm" action="https://formsubmit.co/azaanbk29@gmail.com" method="POST">
+                            <input type="hidden" name="_subject" value="New Contact Form Submission from ToolsHub">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
+
+                            <div class="form-group">
+                                <label>Your Name</label>
+                                <input type="text" name="name" required placeholder="John Doe">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" name="email" required placeholder="john@example.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <input type="text" name="subject" required placeholder="How can we help?">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea name="message" required placeholder="Your message here..."></textarea>
+                            </div>
+
+                            <button type="submit" class="button">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="privacy">
+            <div class="container">
+                <div class="content-section">
+                    <a class="back-button" onclick="showSection('home')">← Back to Home</a>
+                    <h2>Privacy Policy</h2>
+                    <p><em>Last updated: January 2026</em></p>
+
+                    <h3>Introduction</h3>
+                    <p>At ToolsHub, we take your privacy seriously. This Privacy Policy explains how we handle your information when you use our website and tools.</p>
+
+                    <h3>Data Processing</h3>
+                    <p>All tools on ToolsHub process data entirely in your browser using client-side JavaScript. This means:</p>
+                    <ul>
+                        <li>Your files and data never leave your device</li>
+                        <li>No files are uploaded to our servers</li>
+                        <li>No personal data is collected or stored</li>
+                        <li>All processing happens locally on your computer</li>
+                    </ul>
+
+                    <h3>Information We Collect</h3>
+                    <p>We do not collect, store, or process any personal information or files you use with our tools. However, we may collect:</p>
+                    <ul>
+                        <li>Anonymous usage statistics through web analytics</li>
+                        <li>Technical information like browser type and device type for improving user experience</li>
+                        <li>IP addresses temporarily for security purposes</li>
+                    </ul>
+
+                    <h3>Cookies</h3>
+                    <p>We use minimal cookies to:</p>
+                    <ul>
+                        <li>Remember your dark mode preference</li>
+                        <li>Provide essential website functionality</li>
+                        <li>Analyze anonymous usage patterns</li>
+                    </ul>
+                    <p>You can disable cookies in your browser settings, though some features may not work properly.</p>
+
+                    <h3>Third-Party Services</h3>
+                    <p>We may use third-party services such as:</p>
+                    <ul>
+                        <li>Web analytics to understand how visitors use our site</li>
+                        <li>Advertising networks to display ads</li>
+                        <li>CDN services to deliver content faster</li>
+                    </ul>
+                    <p>These services have their own privacy policies and may collect anonymous data.</p>
+
+                    <h3>Your Rights</h3>
+                    <p>Since we don't collect personal data, there's no personal information to access, modify, or delete. However, you can:</p>
+                    <ul>
+                        <li>Clear your browser cookies at any time</li>
+                        <li>Use our tools without creating an account</li>
+                        <li>Contact us with privacy concerns</li>
+                    </ul>
+
+                    <h3>Children's Privacy</h3>
+                    <p>Our services are available to users of all ages. Since we don't collect personal information, our site is safe for children to use under parental supervision.</p>
+
+                    <h3>Changes to This Policy</h3>
+                    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated revision date.</p>
+
+                    <h3>Contact Us</h3>
+                    <p>If you have questions about this Privacy Policy, please <a onclick="showSection('contact')" style="color: var(--primary-color); cursor: pointer;">contact us</a>.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="disclaimer">
+            <div class="container">
+                <div class="content-section">
+                    <a class="back-button" onclick="showSection('home')">← Back to Home</a>
+                    <h2>Disclaimer</h2>
+                    <p><em>Last updated: January 2026</em></p>
+
+                    <h3>General Information</h3>
+                    <p>The information and tools provided on ToolsHub are for general informational and utility purposes only. While we strive to provide accurate and reliable tools, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the website or the tools contained on the website.</p>
+
+                    <h3>Use at Your Own Risk</h3>
+                    <p>Your use of our tools and any reliance you place on them is strictly at your own risk. We recommend that you:</p>
+                    <ul>
+                        <li>Always keep backup copies of important files</li>
+                        <li>Verify the results of any conversions or modifications</li>
+                        <li>Test outputs before using them in production environments</li>
+                        <li>Use professional tools for critical business applications</li>
+                    </ul>
+
+                    <h3>No Professional Advice</h3>
+                    <p>The tools and information on this website are not intended to be a substitute for professional advice. Always seek the advice of qualified professionals for specific situations.</p>
+
+                    <h3>Limitation of Liability</h3>
+                    <p>In no event shall ToolsHub, its owners, employees, or affiliates be liable for any:</p>
+                    <ul>
+                        <li>Direct, indirect, incidental, or consequential damages</li>
+                        <li>Loss of data, profits, or business opportunities</li>
+                        <li>Damages arising from the use or inability to use our tools</li>
+                        <li>Errors or omissions in the functionality of our tools</li>
+                    </ul>
+
+                    <h3>No Warranties</h3>
+                    <p>Our tools are provided "as is" without any warranties, express or implied, including but not limited to:</p>
+                    <ul>
+                        <li>Warranties of merchantability</li>
+                        <li>Fitness for a particular purpose</li>
+                        <li>Non-infringement</li>
+                        <li>Uninterrupted or error-free operation</li>
+                    </ul>
+
+                    <h3>Third-Party Links</h3>
+                    <p>Our website may contain links to third-party websites. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites.</p>
+
+                    <h3>Technical Limitations</h3>
+                    <p>Our tools have certain technical limitations:</p>
+                    <ul>
+                        <li>File size limits based on your browser and device capabilities</li>
+                        <li>Processing speed varies by device performance</li>
+                        <li>Some features may not work on older browsers</li>
+                        <li>Results may vary depending on input quality and format</li>
+                    </ul>
+
+                    <h3>Changes to Tools</h3>
+                    <p>We reserve the right to modify, suspend, or discontinue any tool or feature at any time without notice.</p>
+
+                    <h3>Jurisdiction</h3>
+                    <p>This disclaimer is governed by applicable laws. Any disputes arising from the use of this website shall be subject to the exclusive jurisdiction of the appropriate courts.</p>
+
+                    <h3>Acceptance</h3>
+                    <p>By using ToolsHub, you acknowledge that you have read this disclaimer and agree to its terms.</p>
+
+                    <h3>Contact</h3>
+                    <p>If you have questions about this disclaimer, please <a onclick="showSection('contact')" style="color: var(--primary-color); cursor: pointer;">contact us</a>.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ToolsHub</h3>
+                    <p style="color: var(--text-secondary);">Free online tools for everyone. Fast, secure, and private.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Tools</h3>
+                    <ul class="footer-links">
+                        <li><a onclick="showTool('image-compressor')">Image Compressor</a></li>
+                        <li><a onclick="showTool('image-converter')">Image Converter</a></li>
+                        <li><a onclick="showTool('pdf-converter')">PDF Tools</a></li>
+                        <li><a onclick="showTool('word-counter')">Word Counter</a></li>
+                        <li><a onclick="showTool('password-generator')">Password Generator</a></li>
+                        <li><a onclick="showTool('age-calculator')">Age Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a onclick="showSection('about')">About Us</a></li>
+                        <li><a onclick="showSection('contact')">Contact</a></li>
+                        <li><a onclick="showSection('privacy')">Privacy Policy</a></li>
+                        <li><a onclick="showSection('disclaimer')">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Get in Touch</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:azaanbk29@gmail.com">📧 Email</a></li>
+                        <li><a href="https://wa.me/923705840165" target="_blank">💬 WhatsApp</a></li>
+                        <li><a href="tel:+923705840165">☎️ Phone</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ToolsHub. All rights reserved. Made with care for the web community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        let currentFile = null;
+        let compressedBlob = null;
+        let convertedBlob = null;
+        let pdfFile = null;
+
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+
+            document.getElementById('navLinks').classList.remove('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function showTool(toolId) {
+            showSection(toolId);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('darkModeIcon').textContent = isDark ? '☀️' : '🌙';
+            document.getElementById('darkModeText').textContent = isDark ? 'Light' : 'Dark';
+            localStorage.setItem('darkMode', isDark);
+        }
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            toggleDarkMode();
+        }
+
+        function showAlert(elementId, message, type) {
+            const alert = document.getElementById(elementId);
+            alert.textContent = message;
+            alert.className = `alert alert-${type} show`;
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000);
+        }
+
+        document.getElementById('compressorInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                showAlert('compressorAlert', 'Please select a valid image file.', 'error');
+                return;
+            }
+
+            currentFile = file;
+            document.getElementById('compressorControls').classList.remove('hidden');
+            document.getElementById('compressorResult').classList.add('hidden');
+            document.getElementById('originalSize').textContent = formatFileSize(file.size);
+        });
+
+        document.getElementById('qualitySlider').addEventListener('input', function(e) {
+            document.getElementById('qualityValue').textContent = e.target.value;
+        });
+
+        function compressImage() {
+            if (!currentFile) return;
+
+            const quality = document.getElementById('qualitySlider').value / 100;
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+
+                    canvas.toBlob(function(blob) {
+                        compressedBlob = blob;
+
+                        document.getElementById('compressedSize').textContent = formatFileSize(blob.size);
+                        const reduction = ((1 - blob.size / currentFile.size) * 100).toFixed(1);
+                        document.getElementById('sizeReduction').textContent = reduction + '%';
+
+                        const url = URL.createObjectURL(blob);
+                        document.getElementById('compressedPreview').src = url;
+
+                        document.getElementById('compressorResult').classList.remove('hidden');
+                        showAlert('compressorAlert', 'Image compressed successfully!', 'success');
+                    }, 'image/jpeg', quality);
+                };
+                img.src = e.target.result;
+            };
+
+            reader.readAsDataURL(currentFile);
+        }
+
+        function downloadCompressed() {
+            if (!compressedBlob) return;
+
+            const url = URL.createObjectURL(compressedBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'compressed_' + (currentFile.name.replace(/\.[^/.]+$/, '') + '.jpg');
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function resetCompressor() {
+            currentFile = null;
+            compressedBlob = null;
+            document.getElementById('compressorInput').value = '';
+            document.getElementById('compressorControls').classList.add('hidden');
+            document.getElementById('compressorResult').classList.add('hidden');
+            document.getElementById('qualitySlider').value = 80;
+            document.getElementById('qualityValue').textContent = '80';
+        }
+
+        document.getElementById('converterInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                showAlert('converterAlert', 'Please select a valid image file.', 'error');
+                return;
+            }
+
+            currentFile = file;
+            document.getElementById('converterControls').classList.remove('hidden');
+            document.getElementById('converterResult').classList.add('hidden');
+        });
+
+        function convertImage() {
+            if (!currentFile) return;
+
+            const format = document.getElementById('convertFormat').value;
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+
+                    const ctx = canvas.getContext('2d');
+
+                    if (format === 'image/jpeg') {
+                        ctx.fillStyle = 'white';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    }
+
+                    ctx.drawImage(img, 0, 0);
+
+                    canvas.toBlob(function(blob) {
+                        convertedBlob = blob;
+
+                        const url = URL.createObjectURL(blob);
+                        document.getElementById('convertedPreview').src = url;
+
+                        document.getElementById('converterResult').classList.remove('hidden');
+                        showAlert('converterAlert', 'Image converted successfully!', 'success');
+                    }, format, 0.95);
+                };
+                img.src = e.target.result;
+            };
+
+            reader.readAsDataURL(currentFile);
+        }
+
+        function downloadConverted() {
+            if (!convertedBlob) return;
+
+            const format = document.getElementById('convertFormat').value;
+            const extension = format === 'image/jpeg' ? '.jpg' : '.png';
+
+            const url = URL.createObjectURL(convertedBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'converted_' + currentFile.name.replace(/\.[^/.]+$/, '') + extension;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function resetConverter() {
+            currentFile = null;
+            convertedBlob = null;
+            document.getElementById('converterInput').value = '';
+            document.getElementById('converterControls').classList.add('hidden');
+            document.getElementById('converterResult').classList.add('hidden');
+        }
+
+        document.getElementById('pdfInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.type !== 'application/pdf') {
+                showAlert('pdfAlert', 'Please select a valid PDF file.', 'error');
+                return;
+            }
+
+            pdfFile = file;
+            document.getElementById('pdfControls').classList.remove('hidden');
+            document.getElementById('pdfResult').classList.add('hidden');
+        });
+
+        async function convertPDF() {
+            if (!pdfFile) return;
+
+            const convertType = document.getElementById('pdfConvertType').value;
+            document.getElementById('pdfLoader').classList.add('show');
+            document.getElementById('pdfResult').classList.add('hidden');
+
+            try {
+                const arrayBuffer = await pdfFile.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+
+                if (convertType === 'jpg') {
+                    const page = await pdf.getPage(1);
+                    const viewport = page.getViewport({ scale: 2 });
+
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    await page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    }).promise;
+
+                    canvas.toBlob(function(blob) {
+                        const url = URL.createObjectURL(blob);
+                        const img = document.createElement('img');
+                        img.src = url;
+                        img.className = 'preview-image';
+                        img.style.marginTop = '16px';
+
+                        const downloadBtn = document.createElement('button');
+                        downloadBtn.className = 'button';
+                        downloadBtn.textContent = 'Download JPG';
+                        downloadBtn.style.marginTop = '16px';
+                        downloadBtn.onclick = function() {
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = pdfFile.name.replace('.pdf', '') + '_page1.jpg';
+                            a.click();
+                        };
+
+                        const resultContent = document.getElementById('pdfResultContent');
+                        resultContent.innerHTML = '<p>First page converted to JPG:</p>';
+                        resultContent.appendChild(img);
+                        resultContent.appendChild(document.createElement('br'));
+                        resultContent.appendChild(downloadBtn);
+
+                        document.getElementById('pdfLoader').classList.remove('show');
+                        document.getElementById('pdfResult').classList.remove('hidden');
+                        showAlert('pdfAlert', 'PDF converted to JPG successfully!', 'success');
+                    }, 'image/jpeg', 0.95);
+                } else {
+                    let fullText = '';
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const textContent = await page.getTextContent();
+                        const pageText = textContent.items.map(item => item.str).join(' ');
+                        fullText += pageText + '\n\n';
+                    }
+
+                    const textarea = document.createElement('textarea');
+                    textarea.style.width = '100%';
+                    textarea.style.minHeight = '300px';
+                    textarea.style.marginTop = '16px';
+                    textarea.value = fullText.trim();
+                    textarea.style.fontFamily = 'monospace';
+                    textarea.style.padding = '16px';
+                    textarea.style.border = '2px solid var(--border-color)';
+                    textarea.style.borderRadius = '8px';
+                    textarea.style.background = 'var(--surface-color)';
+                    textarea.style.color = 'var(--text-primary)';
+
+                    const downloadBtn = document.createElement('button');
+                    downloadBtn.className = 'button';
+                    downloadBtn.textContent = 'Download Text File';
+                    downloadBtn.style.marginTop = '16px';
+                    downloadBtn.onclick = function() {
+                        const blob = new Blob([fullText], { type: 'text/plain' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = pdfFile.name.replace('.pdf', '') + '_extracted.txt';
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    };
+
+                    const resultContent = document.getElementById('pdfResultContent');
+                    resultContent.innerHTML = '<p>Extracted text from PDF:</p>';
+                    resultContent.appendChild(textarea);
+                    resultContent.appendChild(document.createElement('br'));
+                    resultContent.appendChild(downloadBtn);
+
+                    document.getElementById('pdfLoader').classList.remove('show');
+                    document.getElementById('pdfResult').classList.remove('hidden');
+                    showAlert('pdfAlert', 'Text extracted successfully!', 'success');
+                }
+            } catch (error) {
+                document.getElementById('pdfLoader').classList.remove('show');
+                showAlert('pdfAlert', 'Error processing PDF: ' + error.message, 'error');
+            }
+        }
+
+        function resetPDF() {
+            pdfFile = null;
+            document.getElementById('pdfInput').value = '';
+            document.getElementById('pdfControls').classList.add('hidden');
+            document.getElementById('pdfResult').classList.add('hidden');
+        }
+
+        function updateWordCount() {
+            const text = document.getElementById('wordCounterText').value;
+
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            const wordCount = words.length;
+
+            const charCount = text.length;
+
+            const charCountNoSpace = text.replace(/\s/g, '').length;
+
+            const paragraphs = text.split(/\n+/).filter(para => para.trim().length > 0);
+            const paragraphCount = paragraphs.length;
+
+            document.getElementById('wordCount').textContent = wordCount;
+            document.getElementById('charCount').textContent = charCount;
+            document.getElementById('charCountNoSpace').textContent = charCountNoSpace;
+            document.getElementById('paragraphCount').textContent = paragraphCount;
+        }
+
+        function clearWordCounter() {
+            document.getElementById('wordCounterText').value = '';
+            updateWordCount();
+        }
+
+        function updateLengthValue() {
+            const length = document.getElementById('passwordLength').value;
+            document.getElementById('lengthValue').textContent = length;
+        }
+
+        function generatePassword() {
+            const length = parseInt(document.getElementById('passwordLength').value);
+            const includeUppercase = document.getElementById('includeUppercase').checked;
+            const includeLowercase = document.getElementById('includeLowercase').checked;
+            const includeNumbers = document.getElementById('includeNumbers').checked;
+            const includeSymbols = document.getElementById('includeSymbols').checked;
+
+            if (!includeUppercase && !includeLowercase && !includeNumbers && !includeSymbols) {
+                showAlert('passwordResult', 'Please select at least one character type.', 'error');
+                return;
+            }
+
+            let charset = '';
+            if (includeUppercase) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (includeLowercase) charset += 'abcdefghijklmnopqrstuvwxyz';
+            if (includeNumbers) charset += '0123456789';
+            if (includeSymbols) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+
+            document.getElementById('generatedPassword').textContent = password;
+            document.getElementById('passwordResult').classList.remove('hidden');
+        }
+
+        function copyPassword() {
+            const password = document.getElementById('generatedPassword').textContent;
+            navigator.clipboard.writeText(password).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        function calculateAge() {
+            const birthDateInput = document.getElementById('birthDate').value;
+
+            if (!birthDateInput) {
+                showAlert('ageAlert', 'Please enter your date of birth.', 'error');
+                return;
+            }
+
+            const birthDate = new Date(birthDateInput);
+            const today = new Date();
+
+            if (birthDate > today) {
+                showAlert('ageAlert', 'Date of birth cannot be in the future.', 'error');
+                return;
+            }
+
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById('ageYears').textContent = years;
+            document.getElementById('ageMonths').textContent = months;
+            document.getElementById('ageDays').textContent = days;
+
+            const totalDays = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+            document.getElementById('ageSummary').textContent =
+                `You are ${years} years, ${months} months, and ${days} days old (${totalDays.toLocaleString()} total days)`;
+
+            document.getElementById('ageResult').classList.remove('hidden');
+            showAlert('ageAlert', 'Age calculated successfully!', 'success');
+        }
+
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('birthDate').setAttribute('max', today);
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            showAlert('contactAlert', 'Sending your message...', 'info');
+        });
+
+        const uploadAreas = document.querySelectorAll('.upload-area');
+        uploadAreas.forEach(area => {
+            area.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('drag-over');
+            });
+
+            area.addEventListener('dragleave', function() {
+                this.classList.remove('drag-over');
+            });
+
+            area.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('drag-over');
+
+                const input = this.querySelector('input[type="file"]');
+                if (input && e.dataTransfer.files.length > 0) {
+                    input.files = e.dataTransfer.files;
+                    input.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
